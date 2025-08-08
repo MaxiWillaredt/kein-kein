@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hey 💖 – war nett, aber…</title>
+  <meta name="description" content="Freundlich + ein bisschen funny: Bitte keinen weiteren Kontakt aufnehmen." />
+  <style>
+    :root{
+      --bg1: #2a0b24; --bg2: #3a0f2f;
+      --card: rgba(255, 192, 203, 0.14);
+      --border: rgba(255,255,255,0.22);
+      --text: #fff0f6; --muted: #ffd6e7;
+      --accent: #ff8ed6; --pink: #ff69b4; --hot: #ff3ca1; --peach: #ff9ac2;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, #6d1a5b 0, transparent 60%),
+        radial-gradient(900px 500px at 80% 15%, #511247 0, transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100%;
+      overflow-x:hidden;
+      cursor: none;
+    }
+    .stars{position:fixed;inset:0;pointer-events:none;z-index:0; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 3px 3px; opacity:.08; filter: blur(.5px) brightness(1.2);}
+    .fog{position:fixed;inset:-20%; pointer-events:none; z-index:0; filter: blur(40px) saturate(130%); mix-blend-mode: screen; opacity:.35;
+      background: conic-gradient(from 0deg at 50% 50%, #ff7ac6, #ffadad, #ffc6ff, #ff7ac6);
+      animation: spin 22s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .wrap{display:grid;place-items:center;min-height:100vh;padding:2rem;position:relative;z-index:1}
+    .card{
+      width:min(880px, 100%); background: var(--card); border-radius: 28px;
+      padding: clamp(1.2rem, 3vw, 2rem); position:relative; border:1px solid var(--border);
+      overflow:hidden; box-shadow: 0 14px 80px rgba(255, 105, 180, .25), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .2s ease, box-shadow .2s ease; --rx: 0deg; --ry: 0deg;
+      transform: rotateX(var(--rx)) rotateY(var(--ry)); backdrop-filter: blur(10px) saturate(120%);
+    }
+    .holo{position:absolute; inset:-2px; border-radius:30px; pointer-events:none;
+      background: conic-gradient(from 180deg at 50% 50%,
+        rgba(255,105,180,.55), rgba(255,166,0,.45), rgba(147,197,253,.55), rgba(255,105,180,.55));
+      filter: blur(16px); opacity:.55; animation: spin 16s linear infinite;
+      mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      padding:2px; box-sizing:border-box;}
+    header{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:.6rem}
+    .badge{display:inline-block;padding:.38rem .7rem;border:1px solid var(--border);
+      border-radius:999px;font-size:.84rem;color:var(--muted);
+      background:rgba(255,255,255,.18); backdrop-filter: blur(6px);}
+    .headline{
+      margin:.25rem 0 .6rem; line-height:1.1; font-weight:900; letter-spacing:.2px; font-size:clamp(1.7rem,3.8vw,2.5rem);
+      background: linear-gradient(90deg, #ffd1e6, #ff8ed6, #ffc3a0, #ffd1e6);
+      -webkit-background-clip:text; background-clip:text; color: transparent;
+      background-size: 200% 100%; animation: hue 12s linear infinite; text-wrap: balance;}
+    @keyframes hue{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+    .subtitle{color:var(--muted);min-height:1.4em}
+    .points{display:grid;gap:.85rem;margin:1rem 0}
+    .point{display:flex; gap:.75rem; align-items:flex-start; padding:1rem 1.1rem; border:1px solid var(--border); border-radius:18px;
+      background: rgba(255,255,255,.18); backdrop-filter: blur(6px);}
+    .icon{width:28px;height:28px;flex:0 0 28px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.24);font-size:16px}
+    .hardline{margin:1rem 0; padding:1rem; border-radius:18px; background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.12));
+      border: 1px dashed var(--border); color:#fff;}
+    .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+    .btn{border:1px solid var(--border); background: linear-gradient(180deg, #ff8ed6, #ff6dbd); padding:1rem 1.2rem;
+      border-radius:14px; color:#fff; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; box-shadow: 0 8px 30px rgba(255,105,180,.35);}
+    .btn.secondary{ background: linear-gradient(180deg, #ffd1e6, #ff9ecf); color:#7a134f }
+    .btn::after{content:""; position:absolute; inset:-2px; background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent); transform: translateX(-100%); animation: shimmer 2.8s infinite;}
+    @keyframes shimmer{to{transform: translateX(100%)}}
+    footer{margin-top:1rem;opacity:.8;font-size:.95rem}
+    .cursor{position:fixed;top:0;left:0;width:22px;height:22px;border-radius:50%;pointer-events:none;z-index:9999;
+      background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,.5) 40%, transparent 60%)}
+    .butterflies{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .butterfly{position:absolute;font-size:24px; filter: hue-rotate(0deg) saturate(180%); opacity:.9; animation: flutter 2s ease-in-out infinite alternate, rainbow 10s linear infinite;}
+    @keyframes rainbow{to{filter:hue-rotate(360deg) saturate(180%)}}
+    @keyframes flutter{0%{transform: translateY(0) rotate(0deg) scale(1)}100%{transform: translateY(-12px) rotate(4deg) scale(1.06)}}
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="fog"></div>
+  <div class="butterflies" id="butterflies" aria-hidden="true"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="wrap">
+    <section class="card" id="card">
+      <div class="holo" aria-hidden="true"></div>
+      <header>
+        <span class="badge">Hinweis</span>
+        <span id="hello" class="badge" style="display:none"></span>
+      </header>
+      <h1 class="headline">Hey 💖 – war voll nett, aber…</h1>
+      <p class="subtitle" id="subtitle"></p>
+
+      <div class="points" id="points">
+        <div class="point"><div class="icon">🙏</div><div><strong>Danke für den Vibe:</strong> War lustig – unseren kleinen Moment pack ich ins Gedächtnis-Archiv.</div></div>
+        <div class="point"><div class="icon">🦋</div><div><strong>Nicht dieselbe Serie:</strong> Manchmal schaut man einfach unterschiedliche Staffeln im Leben – völlig okay.</div></div>
+        <div class="point"><div class="icon">🔒</div><div><strong>Ehrlich & fair:</strong> Lieber jetzt ein klares „War schön, aber lass es so“, statt späteres Ghosting.</div></div>
+      </div>
+
+      <div class="hardline" id="hardline">
+        <strong>Kurz & schmerzlos:</strong> War cool, danke dir – aber mehr Kontakt macht für mich keinen Sinn. Viel Erfolg da draußen und pass gut auf dich auf! ✨
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="copy">Absage-Text kopieren</button>
+        <a class="btn secondary" id="ok" href="#" role="button">Okay, verstanden</a>
+      </div>
+
+      <footer>✨ Es werden keine Daten erhoben. Diese Seite ist nur süßer, statischer Text.</footer>
+    </section>
+  </div>
+
+  <script>
+    // Typewriter subtitle + name param (funny tone)
+    const params = new URLSearchParams(location.search);
+    const name = params.get('name')?.trim();
+    const subtitle = document.getElementById('subtitle');
+    const hello = document.getElementById('hello');
+    const baseText = `Hey${name ? \`, \${name}\` : ""}, danke dir für den netten Abend/das Gespräch – war echt unterhaltsam! Nach einer Nacht Schlaf (und einem Kaffee ☕) hab ich gemerkt: Das hier wird von meiner Seite eher nix Romantisches.`;
+    let i = 0;
+    function type(){
+      if(i <= baseText.length){
+        subtitle.textContent = baseText.slice(0,i);
+        i++;
+        setTimeout(type, 14 + Math.random()*28);
+      }
+    }
+    if(name){ hello.textContent = \`Hi, \${name}!\`; hello.style.display='inline-block'; }
+    type();
+
+    // Pink parallax tilt
+    const card = document.getElementById('card');
+    card.addEventListener('mousemove', (e)=>{
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - .5;
+      const py = (e.clientY - r.top) / r.height - .5;
+      card.style.setProperty('--ry', (px*8) + 'deg');
+      card.style.setProperty('--rx', (-py*8) + 'deg');
+    });
+    card.addEventListener('mouseleave', ()=>{
+      card.style.setProperty('--ry', '0deg');
+      card.style.setProperty('--rx', '0deg');
+    });
+
+    // Cursor sprinkles
+    const cursor = document.getElementById('cursor');
+    addEventListener('mousemove', (e)=>{
+      cursor.style.transform = \`translate(\${e.clientX-11}px, \${e.clientY-11}px)\`;
+      sprinkle(e.clientX, e.clientY);
+    });
+
+    // Butterflies
+    const container = document.getElementById('butterflies');
+    function spawnButterfly(){
+      const el = document.createElement('span');
+      el.className = 'butterfly';
+      el.textContent = '🦋';
+      const size = 18 + Math.random()*28;
+      el.style.fontSize = size + 'px';
+      const x = Math.random()*100;
+      const y = 100 + Math.random()*30;
+      el.style.left = x + 'vw';
+      el.style.top = y + 'vh';
+      el.style.animationDuration = (1.6 + Math.random()*1.2) + 's';
+      el.style.filter = \`hue-rotate(\${Math.floor(Math.random()*360)}deg) saturate(200%)\`;
+      container.appendChild(el);
+      const vx = -0.15 - Math.random()*0.25;
+      const freq = 0.5 + Math.random()*1.2;
+      let t = 0;
+      function move(){
+        t += 0.016;
+        const rect = el.getBoundingClientRect();
+        const nx = rect.left + vx;
+        const ny = rect.top - Math.sin(t*freq)*0.8;
+        el.style.transform = \`translate(\${nx - rect.left}px, \${ny - rect.top}px)\`;
+        if(nx < -40 || ny < -40){ el.remove(); return; }
+        requestAnimationFrame(move);
+      }
+      move();
+      setTimeout(()=> el.remove(), 20000);
+    }
+    setInterval(spawnButterfly, 600);
+    for(let i=0;i<12;i++) setTimeout(spawnButterfly, i*200);
+
+    // Sparkle / heart sprinkles
+    function sprinkle(x, y){
+      for(let i=0;i<2;i++){
+        const s = document.createElement('div');
+        s.textContent = Math.random() < 0.5 ? '✨' : '💖';
+        s.style.position='fixed';
+        s.style.left = (x + (Math.random()-0.5)*16) + 'px';
+        s.style.top = (y + (Math.random()-0.5)*16) + 'px';
+        s.style.fontSize = (10 + Math.random()*10) + 'px';
+        s.style.pointerEvents='none';
+        s.style.zIndex=9998;
+        s.style.opacity='1';
+        s.style.transition='transform 600ms ease, opacity 600ms ease';
+        document.body.appendChild(s);
+        requestAnimationFrame(()=>{
+          s.style.transform = \`translate(\${(Math.random()-0.5)*40}px, \${-20 - Math.random()*30}px)\`;
+          s.style.opacity='0';
+        });
+        setTimeout(()=> s.remove(), 650);
+      }
+    }
+
+    // Copy & OK with heart confetti
+    function heartConfetti(){
+      const c = document.createElement('canvas');
+      c.width = innerWidth; c.height = innerHeight;
+      c.style.position='fixed'; c.style.inset='0'; c.style.pointerEvents='none'; c.style.zIndex='9999';
+      document.body.appendChild(c);
+      const x = c.getContext('2d');
+      const pieces = Array.from({length: 140}, () => ({
+        x: innerWidth/2, y: innerHeight/2, r: 3 + Math.random()*5, a: Math.random()*Math.PI*2,
+        vx: (Math.random()-.5)*8, vy: -Math.random()*8 - 4,
+        g: .25 + Math.random()*.2,
+        hue: (Math.random()*360)|0, rot: Math.random()*6.28, vr: (Math.random()-.5)*.2
+      }));
+      let t = 0;
+      (function step(){
+        x.clearRect(0,0,c.width,c.height);
+        for(const p of pieces){
+          p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+          x.save(); x.translate(p.x, p.y); x.rotate(p.rot);
+          x.fillStyle = \`hsl(\${p.hue} 90% 60%)\`;
+          const r = p.r;
+          x.beginPath();
+          x.moveTo(0, -r/2);
+          x.bezierCurveTo(r, -r*1.8, r*2, 0, 0, r*1.8);
+          x.bezierCurveTo(-r*2, 0, -r, -r*1.8, 0, -r/2);
+          x.fill();
+          x.restore();
+        }
+        t++; if(t<120) requestAnimationFrame(step); else c.remove();
+      })();
+    }
+
+    document.getElementById('copy').addEventListener('click', async (e) => {
+      const msg = `Hey, war wirklich nett und witzig – danke dir! Nach einer Nacht Schlaf (und einem Kaffee) hab ich gemerkt: Das wird von meiner Seite nix Romantisches. Bitte respektiere das und sieh von weiteren Nachrichten ab. Alles Gute & viel Glück!`;
+      try {
+        await navigator.clipboard.writeText(msg);
+        const b = e.currentTarget;
+        const prev = b.textContent; b.textContent = 'Kopiert ✓';
+        setTimeout(()=> b.textContent = prev, 1300);
+        heartConfetti();
+      } catch(e) { alert('Konnte den Text nicht kopieren.'); }
+    });
+
+    document.getElementById('ok').addEventListener('click', (e)=>{
+      e.preventDefault(); heartConfetti();
+      const end = document.createElement('div');
+      end.style.position='fixed'; end.style.inset='0'; end.style.display='grid';
+      end.style.placeItems='center'; end.style.background='rgba(0,0,0,.45)';
+      end.style.backdropFilter='blur(4px)';
+      end.innerHTML = '<div style="padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.25);border-radius:16px;background:rgba(255,192,203,.25);color:#fff">Alles Liebe 💖</div>';
+      document.body.appendChild(end);
+      setTimeout(()=> end.remove(), 1500);
+    });
+  </script>
+</body>
+</html>
